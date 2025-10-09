@@ -1,27 +1,14 @@
-function square_sums_row(n) {
-  function isSquare(x) {
-    return Number.isInteger(Math.sqrt(x));
+function duplicateOrUnique(arr) {
+  const uniqueNums = [...new Set(arr)];
+  const sumArr = arr.reduce((a, b) => a + b, 0);
+  const sumSet = uniqueNums.reduce((a, b) => a + b, 0);
+  if (arr.length === uniqueNums.length + 1) {
+    return sumArr - sumSet;
+  } else {
+    return 2 * sumSet - sumArr;
   }
-  function build(path, usedNumbers) {
-    if (path.length === n) return path; 
-
-    const last = path[path.length - 1];
-    for (let next = 1; next <= n; next++) {
-      if (!usedNumbers.has(next) && isSquare(last + next)) {
-        usedNumbers.add(next);                
-        const result = build([...path, next], usedNumbers);
-        if (result) return result;
-        usedNumbers.delete(next);
-      }
-    }
-    return null;
-  }
-  for (let start = 1; start <= n; start++) {
-    const used = new Set([start]);
-    const result = build([start], used);
-    if (result) return result;
-  }
-  return false;
 }
-console.log(square_sums_row(15)); 
-console.log(square_sums_row(5)); 
+console.log(duplicateOrUnique([1,2,3,6,5,4,1]));                    
+console.log(duplicateOrUnique([1,2,3,1,2,3,4]));                     
+console.log(duplicateOrUnique([3,6,9,2,5,8,1,4,8,7]));               
+console.log(duplicateOrUnique([9,8,7,1,2,3,9,7,1,2,3,4,4,5,5,6,6])); 
