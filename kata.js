@@ -1,24 +1,14 @@
-function notPrimes(a, b) {
-  function digitsArePrime(n) {
-    return n.toString().split("").every(d => ["2", "3", "5", "7"].includes(d));
-  }
-
-  function isPrime(n) {
-    if (n < 2) return false;
-    if (n % 2 === 0) return n === 2;
-    let r = Math.floor(Math.sqrt(n));
-    for (let i = 3; i <= r; i += 2) {
-      if (n % i === 0) return false;
-    }
-    return true;
-    }
-    
-  let result = [];
-  for (let n = a; n < b; n++) {
-    if (digitsArePrime(n) && !isPrime(n)) {
-      result.push(n);
-    }
-  }
-  return result;
+function digitSum(x) {
+  return x.toString().split('').reduce((s, d) => s + Number(d), 0);
 }
-console.log(notPrimes(2, 100));
+
+function solve(n) {
+  let s = n.toString();
+  let len = s.length;
+  let a = Number('9'.repeat(len - 1));
+  let b = n - a;
+  return digitSum(a) + digitSum(b);
+}
+console.log(solve(29));   
+console.log(solve(100));  
+console.log(solve(483));  
