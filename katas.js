@@ -1,14 +1,18 @@
-function duplicateOrUnique(arr) {
-  const uniqueNums = [...new Set(arr)];
-  const sumArr = arr.reduce((a, b) => a + b, 0);
-  const sumSet = uniqueNums.reduce((a, b) => a + b, 0);
-  if (arr.length === uniqueNums.length + 1) {
-    return sumArr - sumSet;
-  } else {
-    return 2 * sumSet - sumArr;
+function smallest(n) {
+  let s = [...String(n)], best = [n, 0, 0];
+  for (let i = 0; i < s.length; i++) {
+    let t = [...s];
+    let d = t.splice(i, 1)[0]; 
+    for (let j = 0; j <= s.length - 1; j++) {
+      let num = +[...t.slice(0, j), d, ...t.slice(j)].join('');
+      if (num < best[0] || (num === best[0] && (i < best[1] || (i === best[1] && j < best[2]))))
+        best = [num, i, j];
+    }
   }
+  return best;
 }
-console.log(duplicateOrUnique([1,2,3,6,5,4,1]));                    
-console.log(duplicateOrUnique([1,2,3,1,2,3,4]));                     
-console.log(duplicateOrUnique([3,6,9,2,5,8,1,4,8,7]));               
-console.log(duplicateOrUnique([9,8,7,1,2,3,9,7,1,2,3,4,4,5,5,6,6])); 
+
+smallest(261235) 
+smallest(209917) 
+smallest(1000000) 
+
