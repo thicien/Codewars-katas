@@ -7,4 +7,6 @@ function login(password) {
         }, 2000);
     });
 }
-login("1234").then(console.log).catch(console.log);
+login("1234")
+    .then(console.log)
+    .catch(console.log);
