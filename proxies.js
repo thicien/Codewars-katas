@@ -7,7 +7,7 @@ const confidential = {
 const secure = new Proxy(confidential, {
   get(target, prop) {
     if (prop === "password") {
-      return "Access Denied 🔒";
+      return "Access Denied";
     }
     return target[prop];
   }
