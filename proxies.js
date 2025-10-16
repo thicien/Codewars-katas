@@ -11,3 +11,17 @@ const myProfile = new Proxy(eleve, {
     }
 });
 myProfile.age = 56;
+
+//Password encryption
+const encryption = {
+    admin: 'kalisa', password: 1234;
+}
+const secure = new Proxy(encryption, {
+    get(target, prop) {
+        if (prop === password) {
+            return ('access denied!');
+        }
+        target[prop];
+    }
+});
+encryption.password;
