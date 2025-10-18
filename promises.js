@@ -12,19 +12,19 @@ login("1234")
     .catch(console.log);
 
 //Fetching user data.
-    function getUser() {
-  return new Promise(resolve =>
-    setTimeout(() => resolve({ id: 1, name: "Thicien" }), 1000)
-  );
-}
+//     function getUser() {
+//   return new Promise(resolve =>
+//     setTimeout(() => resolve({ id: 1, name: "Thicien" }), 1000)
+//   );
+// }
 
-function getPosts(userId) {
-  return new Promise(resolve =>
-    setTimeout(() => resolve(["Post 1", "Post 2", "Post 3"]), 1000)
-  );
-}
+// function getPosts(userId) {
+//   return new Promise(resolve =>
+//     setTimeout(() => resolve(["Post 1", "Post 2", "Post 3"]), 1000)
+//   );
+// }
 
-getUser()
-  .then(user => getPosts(user.id))
-  .then(posts => console.log("Posts:", posts));
-  .then(posts => console.log(posts.length));
+// getUser()
+//   .then(user => getPosts(user.id))
+//   .then(posts => console.log("Posts:", posts));
+//   .then(posts => console.log(posts.length));
