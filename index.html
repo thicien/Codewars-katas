@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>display text</title>
+</head>
+<body>
+  <button id="callBtn">Show object information</button>
+  <button id="applyBtn">Show object information</button>
+  <button id="bindButton">Show object information</button>
+  
+  <p id="output"></p>
+
+  <script>
+    const obj = {
+      name: 'Thicien',
+      age: 22
+    };
+
+    
+    function showProfile(extraText) {
+      document.getElementById("output").innerHTML =
+        `Name: ${this.name} <br> Age: ${this.age} <br> ${extraText}`;
+    }
+
+    document.getElementById("callBtn").addEventListener("click", function() {
+      showProfile.call(obj, "");
+    });
+    
+    
+    document.getElementById("applyBtn").addEventListener("click", function() {
+      showProfile.apply(obj, "");
+    });
+    document.getElementById("bindBtn").addEventListener("click", function() {
+        showProfile.bind(obj, "");
+    })
+  </script>
+</body>
+</html>
