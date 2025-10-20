@@ -28,3 +28,8 @@ getUser()
   .then(user => getPosts(user.id))
   .then(posts => console.log("Posts:", posts))
   .then(posts => console.log(posts.length));
+// position found
+  function position(letter) {
+  let position = letter.charCodeAt(0) - 96;
+  return `Position of alphabet: ${position}`;
+}
