@@ -26,13 +26,12 @@
       showProfile.call(obj, "");
     });
     
-    
     document.getElementById("applyBtn").addEventListener("click", function() {
-      showProfile.apply(obj, "");
+      showProfile.apply(obj, [""]);
     });
-    document.getElementById("bindBtn").addEventListener("click", function() {
-        showProfile.bind(obj, "");
-    })
+
+    const boundFunction = showProfile.bind(obj, "");
+    document.getElementById("bindBtn").addEventListener("click", boundFunction);
   </script>
 </body>
 </html>
