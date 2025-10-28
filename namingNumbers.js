@@ -50,7 +50,7 @@ function numberToEnglish(num) {
   return result.trim();
 }
 console.log(numberToEnglish(0));
-console.log(numberToEnglish(45);
+console.log(numberToEnglish(45));
 console.log(numberToEnglish(3476));
 console.log(numberToEnglish(32987));
 console.log(numberToEnglish(20098));
