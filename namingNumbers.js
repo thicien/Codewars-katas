@@ -1,7 +1,7 @@
 function numberToEnglish(num) {
   
-  if (!Number.isInteger(num) || num < 0 || num > 99999) return "";
-  if (num === 0) return "zero";
+    if (!Number.isInteger(num) || num < 0 || num > 99999) return "";
+    if (num === 0) return "zero";
 
   const ones = [
     "", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
