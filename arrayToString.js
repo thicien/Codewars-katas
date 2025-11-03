@@ -11,7 +11,7 @@ function arrayToString(arr) {
   });
   return `[${elements.join(",")}]`;
 }
-console.log(arrayToString([])); 
+console.log(arrayToString([]));
 console.log(arrayToString([3.14])); 
 console.log(arrayToString([1,2,3]));
 console.log(arrayToString(["Hello World",3.14,"Lorem Ipsum"]));
