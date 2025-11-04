@@ -1,11 +1,11 @@
 function solve(arr) {
   return arr.sort((a, b) => {
-    const freqA = arr.filter(x => x === a).length;
-    const freqB = arr.filter(x => x === b).length;
-    if (freqA === freqB) {
+    const myFreq1 = arr.filter(x => x === a).length;
+    const myFreq2 = arr.filter(x => x === b).length;
+    if (myFreq1 === myFreq2) {
       return a - b;
     } else {
-      return freqB - freqA;
+      return myFreq2 - myFreq1;
     }
   });
 }
