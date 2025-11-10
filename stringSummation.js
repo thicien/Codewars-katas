@@ -8,5 +8,9 @@ function sumStrings(a, b) {
         const digitA = a >= 0 ? +a[i--] : 0;
         const digitB = a >= 0 ? +b[j--] : 0;
         const digitSum = digitA + digitB + carry;
+        carry = Math.floor(sum / 10);
+        result = (sum % 10) + result;
     }
+    return result;
 }
+console.log(sumString('1', '2'));
