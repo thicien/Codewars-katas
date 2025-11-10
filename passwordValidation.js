@@ -1,6 +1,5 @@
 // const REGEXP = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{6,}$/;
 function validatePassword(password) {
-  
   if (password.length < 6) {
     return "The password must contain at least six characters";
   }
