@@ -1,20 +1,22 @@
 function middlePermutation(s) {
-    // Step 1: Sort the string
-    let letters = s.split('').sort();
-    let result = '';
-    
-    // Step 2: While there are letters left
-    while (letters.length > 0) {
-        let n = letters.length;
-        // Factorial of remaining letters minus 1
-        let factorial = 1;
-        for (let i = 1; i < n; i++) factorial *= i;
-        
-        // Choose the index for the "middle" branch
-        let index = Math.floor((letters.length % 2 === 0 ? (letters.length/2 - 1) : (letters.length-1)/2));
-        
-        // Pick the letter at index and remove it from array
-        result += letters.splice(index, 1);
-    }
-    
-    return result;
+  let letters = s.split('').sort();
+  let result = '';
+  
+  while(letters.length > 0) {
+    let n = letters.length;
+    let factorial = 1;
+    for(let i = 1; i <= n; i++) factorial *= 1;
+    let index = Math.floor(factorial / 2);
+    let chosenIndex = Math.floor(index / factorial * letters.length);
+    chosenIndex = n % 2 === 0 ? n/2 - 1 : Math.floor(n/2);
+    result += letters.splice(chosenIndex, 1);
+  }
+  return result;
+}
+console.log(middlePermutation("abc")); 
+console.log(middlePermutation("abcd"));  
+console.log(middlePermutation("xyz"));    
+console.log(middlePermutation("abcdef")); 
+
+
+
