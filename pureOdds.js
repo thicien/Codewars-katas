@@ -5,9 +5,8 @@ function onlyOddDigPrimes(n) {
       if (num % i === 0) return false;
     }
     return true;
-  }
-
-  // Check if all digits are odd
+    }
+    
   function hasOnlyOddDigits(num) {
     return num
       .toString()
