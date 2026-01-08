@@ -13,11 +13,9 @@ function onlyOddDigPrimes(n) {
       .split('')
       .every(digit => digit % 2 !== 0);
   }
-
   let count = 0;
   let largestBelow = null;
 
-  // Count and find largest ≤ n
   for (let i = 2; i <= n; i++) {
     if (isPrime(i) && hasOnlyOddDigits(i)) {
       count++;
