@@ -30,7 +30,6 @@ function onlyOddDigPrimes(n) {
     }
     smallestAbove++;
   }
-
   return [count, largestBelow, smallestAbove];
 }
 console.log(onlyOddDigPrimes(20)); // [7, 19, 31]
