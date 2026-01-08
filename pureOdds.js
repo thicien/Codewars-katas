@@ -23,7 +23,6 @@ function onlyOddDigPrimes(n) {
     }
   }
 
-  // Find smallest > n
   let smallestAbove = n + 1;
   while (true) {
     if (isPrime(smallestAbove) && hasOnlyOddDigits(smallestAbove)) {
