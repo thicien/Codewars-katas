@@ -9,10 +9,8 @@ function onlyOddDigPrimes(n) {
     
   function hasOnlyOddDigits(num) {
     return num
-      .toString()
-      .split('')
-      .every(digit => digit % 2 !== 0);
-  }
+      .toString().split('').every(digit => digit % 2 !== 0);
+    }
   let count = 0;
   let largestBelow = null;
 
