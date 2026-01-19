@@ -1,15 +1,12 @@
 function changeCase(identifier, targetCase) {
     if (identifier === "") return "";
-
     if (!["camel", "snake", "kebab"].includes(targetCase)) {
         return undefined;
     }
-
     const hasUnderscore = identifier.includes("_");
     const hasDash = identifier.includes("-");
     const hasUpper = /[A-Z]/.test(identifier);
 
-    // ❌ mixed separators
     if ((hasUnderscore && hasDash) ||
         (hasUpper && (hasUnderscore || hasDash))) {
         return undefined;
@@ -17,7 +14,6 @@ function changeCase(identifier, targetCase) {
 
     let words;
 
-    // camelCase
     if (hasUpper) {
         words = identifier
             .replace(/([A-Z])/g, " $1")
