@@ -24,17 +24,14 @@ function changeCase(identifier, targetCase) {
             .toLowerCase()
             .split(" ");
     }
-    // snake_case
     else if (hasUnderscore) {
         if (!/^[a-z_]+$/.test(identifier)) return undefined;
         words = identifier.split("_");
     }
-    // kebab-case
     else if (hasDash) {
         if (!/^[a-z-]+$/.test(identifier)) return undefined;
         words = identifier.split("-");
     }
-    // already lowercase single word
     else {
         words = [identifier];
     }
