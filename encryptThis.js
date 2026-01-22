@@ -13,3 +13,4 @@ function encryptThis(str) {
 console.log(encryptThis("Hello"));
 console.log(encryptThis("good"));
 console.log(encryptThis("Hello Rwanda"));
+console.log(encryptThis("I am a developer"));
