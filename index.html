@@ -1,37 +1,198 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>display text</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveSelect | Used Car Marketplace</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+        }
+
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+
+        body { background-color: #f1f5f9; color: var(--dark); line-height: 1.6; }
+
+        header { background: var(--dark); color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        
+        .hero { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=1920'); 
+                background-size: cover; background-position: center; height: 300px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; }
+
+        .search-container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin-top: -40px; width: 90%; max-width: 800px; align-self: center; display: flex; gap: 10px; margin-left: auto; margin-right: auto; }
+        input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; }
+
+        .container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
+        .car-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+
+        .car-card { background: white; border-radius: 12px; overflow: hidden; transition: transform 0.3s ease; box-shadow: 0 2px 10px rgba(0,0,0,0.05); cursor: pointer; }
+        .car-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        
+        .car-img { width: 100%; height: 200px; object-fit: cover; }
+        
+        .car-info { padding: 20px; }
+        .car-price { font-size: 1.5rem; font-weight: bold; color: var(--primary); }
+        .car-title { font-size: 1.2rem; margin: 5px 0; font-weight: 600; }
+        .car-details { display: flex; justify-content: space-between; color: var(--gray); font-size: 0.9rem; margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background: white; width: 90%; max-width: 600px; border-radius: 15px; overflow: hidden; position: relative; }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; }
+        .modal-body { padding: 30px; }
+
+        @media (max-width: 600px) { .search-container { flex-direction: column; } }
+    </style>
 </head>
 <body>
-  <button id="callBtn">Show object information</button>
-  <button id="applyBtn">Show object information</button>
-  <button id="bindBtn">Show object information</button>
-  
-  <p id="output"></p>
 
-  <script>
-    const obj = {
-      name: 'Thicien',
-      age: 22
-    };
+    <header>
+        <h1>DriveSelect</h1>
+        <nav>Marketplace | Sell Car | Profile</nav>
+    </header>
 
-    
-    function showProfile(extraText) {
-      document.getElementById("output").innerHTML =
-        `Name: ${this.name} <br> Age: ${this.age} <br> ${extraText}`;
-    }
+    <section class="hero">
+        <h2>Find Your Next Adventure</h2>
+        <p>Browse over 5,000+ certified used cars</p>
+    </section>
 
-    document.getElementById("callBtn").addEventListener("click", function() {
-      showProfile.call(obj, "");
-    });
-    
-    document.getElementById("applyBtn").addEventListener("click", function() {
-      showProfile.apply(obj, [""]);
-    });
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search by brand or model (e.g. BMW)..." onkeyup="filterCars()">
+    </div>
 
-    const boundFunction = showProfile.bind(obj, "");
-    document.getElementById("bindBtn").addEventListener("click", boundFunction);
-  </script>
+    <div class="container">
+        <div class="car-grid" id="carGrid">
+            </div>
+    </div>
+
+    <div id="carModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modalData"></div>
+        </div>
+    </div>
+
+    <script>
+        const cars = [
+            {
+                id: 1,
+                brand: "Tesla",
+                model: "Model 3 Long Range",
+                year: 2022,
+                price: 38500,
+                mileage: "12,400 mi",
+                fuel: "Electric",
+                image: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&q=80&w=600",
+                description: "Pristine condition, full self-driving capability included. One owner, non-smoker."
+            },
+            {
+                id: 2,
+                brand: "BMW",
+                model: "M4 Competition",
+                year: 2021,
+                price: 62000,
+                mileage: "8,200 mi",
+                fuel: "Gasoline",
+                image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&q=80&w=600",
+                description: "Ultimate driving machine with carbon fiber interior package and sport exhaust."
+            },
+            {
+                id: 3,
+                brand: "Ford",
+                model: "F-150 Raptor",
+                year: 2020,
+                price: 55900,
+                mileage: "35,000 mi",
+                fuel: "Gasoline",
+                image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=600",
+                description: "Off-road ready with upgraded Fox shocks and 35-inch all-terrain tires."
+            },
+            {
+                id: 4,
+                brand: "Audi",
+                model: "A5 Sportback",
+                year: 2019,
+                price: 29500,
+                mileage: "42,000 mi",
+                fuel: "Gasoline",
+                image: "https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?auto=format&fit=crop&q=80&w=600",
+                description: "Elegant styling with Quattro all-wheel drive and premium Bang & Olufsen sound."
+            },
+            {
+                id: 5,
+                brand: "Porsche",
+                model: "911 Carrera",
+                year: 2023,
+                price: 115000,
+                mileage: "1,500 mi",
+                fuel: "Gasoline",
+                image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=600",
+                description: "Like new condition. Special Guard's Red paint and sport chrono package."
+            }
+        ];
+
+        function displayCars(carsArray) {
+            const grid = document.getElementById('carGrid');
+            grid.innerHTML = "";
+
+            carsArray.forEach(car => {
+                const card = `
+                    <div class="car-card" onclick="openModal(${car.id})">
+                        <img src="${car.image}" alt="${car.brand}" class="car-img">
+                        <div class="car-info">
+                            <p class="car-price">$${car.price.toLocaleString()}</p>
+                            <h3 class="car-title">${car.year} ${car.brand} ${car.model}</h3>
+                            <div class="car-details">
+                                <span>📍 ${car.mileage}</span>
+                                <span>⛽ ${car.fuel}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        function filterCars() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = cars.filter(car => 
+                car.brand.toLowerCase().includes(searchTerm) || 
+                car.model.toLowerCase().includes(searchTerm)
+            );
+            displayCars(filtered);
+        }
+
+        function openModal(id) {
+            const car = cars.find(c => c.id === id);
+            const modalData = document.getElementById('modalData');
+            const modal = document.getElementById('carModal');
+
+            modalData.innerHTML = `
+                <img src="${car.image}" style="width:100%; height:300px; object-fit:cover;">
+                <div class="modal-body">
+                    <h2>${car.year} ${car.brand} ${car.model}</h2>
+                    <p style="color:var(--primary); font-size:1.5rem; font-weight:bold; margin: 10px 0;">$${car.price.toLocaleString()}</p>
+                    <p><strong>Mileage:</strong> ${car.mileage}</p>
+                    <p><strong>Fuel Type:</strong> ${car.fuel}</p>
+                    <p style="margin-top:15px; color: #555;">${car.description}</p>
+                    <button style="margin-top:20px; width:100%; padding:15px; background:var(--primary); color:white; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">Contact Seller</button>
+                </div>
+            `;
+            modal.style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById('carModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('carModal')) {
+                closeModal();
+            }
+        }
+
+        displayCars(cars);
+    </script>
 </body>
 </html>
