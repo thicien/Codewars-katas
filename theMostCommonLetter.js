@@ -23,7 +23,3 @@ function replaceCommon(string, letter) {
     }
     return string.split(mostCommon).join(letter);
 }
-
-console.log(replaceCommon('my mom loves me as never did', 't'));
-console.log(replaceCommon('real talk bro', 'n'));
-console.log(replaceCommon('great job go ahead', 'k'));
