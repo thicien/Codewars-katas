@@ -8,4 +8,5 @@ function findMissingLetter(array) {
     }
   }
 }
+
 console.log(findMissingLetter(['a', 'b', 'c', 'd', 'f']));
